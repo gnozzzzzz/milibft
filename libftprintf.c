@@ -15,14 +15,46 @@ static void hexadecima(int i)
     }
 }
 
+static void suma(int *a, int b)
+{
+    *a = *a + b;
+}
+
 static void punterea(void *j)
 {
-    int prime[5] = {2,3,5,7,11};
+    int a = 1;
+    int *c = &a;
+    int b = 2;
+    suma(c,b);
+    printf("%i , %i", a, b);
+    /*char cadena[] = "holamundo";
+
+    printf("la cadena esta : %p\n", cadena);    /// devuelven lo mismo como puntero, pero da error al tratar de sacar la cadena en la segunda
+    printf("la cadena esta : %p\n", &cadena);   ///
+    */
+    /*int marks[5][3] = { { 98, 76, 89},
+                    { 81, 96, 79},
+                    { 88, 86, 89},
+                    { 97, 94, 99},
+                    { 92, 81, 59}
+                  };
+
+    printf("Address of 0th array = %p\n", marks);
+    printf("Addition of 1 results in %p\n", marks +1);
+    printf("Address of 0th array =%p\n", &marks[0]);
+    printf("Addition of 1 results in %p\n", &marks[0] + 1);
+
+    printf("Value of 0th element of 0th array = %d\n", *(marks[2]+1));
+    printf("Value of 0th element of 0th array = %d\n", *(*(marks + 1)+1));
+    printf("Addition of 1 results in %d", marks[0][0] + 1);*/
+
+    /*int prime[5] = {2,3,5,7,11};
     printf("array = %p, array + 1 = %p\n", &prime, &prime + 1);
     for( int i = 0; i < 5; i++)
     {
         printf("index = %i, address = %p, value = %d\n", i, &prime[i], prime[i]);
-    }
+        printf("index = %i, address = %p, value = %d\n", i, prime + i, *(prime + i));
+    }*/
 }
 
 
@@ -109,7 +141,7 @@ int ft_printf(char const *texto , ...)
 int main()
 {
     //ft_printf("hola %s mundo 1 \n", "- argumento 1 -");
-    ft_printf("el resultado es:\n%p\n", 255);
+    ft_printf("el resultado es:\n%p", 255);
     //ft_printf("hola %d mundo 3 \n", -123);
     //ft_printf("hola mundo % 3 \n", 123);    
     return (1);
