@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "libft.h"
 
-static void hexadecima(int i)
+static char *hexadecima(int i)
 {
     char allhexadecimalsmay[] = "0123456789ABCDEF"; 
     char allhexadecimalsmin[] = "0123456789abcdef";
@@ -13,16 +13,42 @@ static void hexadecima(int i)
         write(1,&allhexadecimalsmin[temp], 1); 
         i = i/16;
     }
+    return (NULL);
 }
 
-static void punterea(void *j)
+
+static char *hexadecima2(int i)
 {
-    int prime[5] = {2,3,5,7,11};
-    printf("array = %p, array + 1 = %p\n", &prime, &prime + 1);
-    for( int i = 0; i < 5; i++)
+    int digitos = 0;
+    int copia;
+    int index;
+    char *resultado; 
+    char allhexadecimalsmay[] = "0123456789ABCDEF"; 
+    char allhexadecimalsmin[] = "0123456789abcdef";
+
+    copia = i;
+    while (copia > 0)
     {
-        printf("index = %i, address = %p, value = %d\n", i, &prime[i], prime[i]);
+        copia = copia/16;
+        digitos ++;
     }
+    resultado = malloc (sizeof(char) * digitos);
+    index = digitos - 1;
+    while (i > 0)
+    {
+        int temp;
+        temp = i%16;
+        i = i/16;
+        resultado[index] = allhexadecimalsmin[temp];;
+        index --;
+    }
+    /*char duplicate[digitos];
+    while(digitos > 0)
+    {
+        digitos --;
+        duplicate[digitos] = resultado[digitos];
+    }*/
+    return (resultado);
 }
 
 
@@ -53,7 +79,10 @@ int ft_printf(char const *texto , ...)
             else if (*(texto + indice) == 'p')                  /// puntero void * en hexadecimal
             {
                 indice ++;
-                punterea(va_arg(argumentos, void *));
+                int numero = va_arg(argumentos, int);
+                char *aponer = hexadecima(numero);
+                write(1,aponer, ft_strlen(aponer));
+                free (aponer);
             }
             else if (*(texto + indice) == 'd')                  /// numero decimal
             {
@@ -82,13 +111,15 @@ int ft_printf(char const *texto , ...)
             {
                 indice ++;
                 int numero = va_arg(argumentos, int);
-                hexadecima(numero);
+                char *aponer = hexadecima(numero);
+                //write(1,aponer, ft_strlen(aponer));    
             }
             else if (*(texto + indice) == 'X')                  /// numero hexadecimal mayusculas
             {
                 indice ++;
                 int numero = va_arg(argumentos, int);
-                hexadecima(numero);
+                char *aponer = hexadecima(numero);
+                write(1,aponer, ft_strlen(aponer));    
             }
             else if (*(texto + indice) == '%')
             {
@@ -109,7 +140,7 @@ int ft_printf(char const *texto , ...)
 int main()
 {
     //ft_printf("hola %s mundo 1 \n", "- argumento 1 -");
-    ft_printf("el resultado es:\n%p\n", 255);
+    ft_printf("el resultado es: %x\n", 255);
     //ft_printf("hola %d mundo 3 \n", -123);
     //ft_printf("hola mundo % 3 \n", 123);    
     return (1);
