@@ -1,27 +1,31 @@
-NAME = a.exe
-FILES = libftprintf
-SRC_DIR = carpetac
-OBJ_DIR = carpetao
-CFILES = $(addsuffix .c,$(FILES))
-OFILES = $(addsuffix .o,$(FILES))
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-AR = ar rcs
+NAME = libftprintf.a
+LIBFTNAME = libft.a
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
+LIBFTDIR = ./libft
 
-all: a.exe
+SRCS = 	libftprintf.c \
+		ftprintftxts.c \
+		ftprintfhex.c \
 
-a.exe: .\libft\libft.a
-	gcc .\libftprintf.c -L.\libft -lft
+OBJS = $(SRCS:.c=.o)
 
-.\libft\libft.a:
-	$(MAKE) -C libft all
-	$(MAKE) clean
-	
+all: $(NAME)
+
+makelibft:
+	@make -C $(LIBFTDIR)
+	@cp $(LIBFTDIR)/$(LIBFTNAME) .
+	@mv $(LIBFTNAME) $(NAME)
+
+$(NAME): makelibft $(OBJS)
+	@ar -r $(NAME) $(OBJS)
+
 clean:
-	$(MAKE) -C libft clean
-
-.PHONY:  all clean fclean re
-
-#gcc -c .\libftprintf.c .\ftprintffuncs.c
-#ar rcs libftprintf.a .\ftprintffuncs.o .\libftprintf.o
-#gcc unmain.c -L. -lftprintf -Ilibft -Llibft -lft
+	@rm -f $(OBJS)
+	@cd $(LIBFTDIR) && make clean
+	
+fclean: clean
+	@rm -f $(NAME)
+	@cd $(LIBFTDIR) && make fclean
+	
+re: fclean all
