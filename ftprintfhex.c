@@ -70,12 +70,12 @@ int	hexadecimamay(int i)
 	int						extra;
 	int						j;
 	unsigned long long int	copia;
-	char					*allhexadecimalsmin;
+	char					*allhexadecimalsmay;
 
 	j = 0;
 	copia = i;
-	allhexadecimalsmin = "0123456789ABCDEF";
-	extra = switchbase(allhexadecimalsmin, i);
+	allhexadecimalsmay = "0123456789ABCDEF";
+	extra = switchbase(allhexadecimalsmay, i);
 	return (extra - 2);
 }
 
@@ -85,13 +85,18 @@ int	hxdclng(va_list *argumentos)
 	int						j;
 	unsigned long long int	i;
 	unsigned long long int	copia;
-	char					*allhexadecimalsmin;
+	char					*allhexadecimals;
 
 	i = (unsigned long long int)va_arg(*argumentos, void *);
 	j = 0;
+	if (!i)
+	{
+		write(1, "0x0", 3);
+		return (1);
+	}
 	copia = i;
-	allhexadecimalsmin = "0123456789abcdef";
+	allhexadecimals = "0123456789abcdef";
 	write(1, "0x", 2);
-	extra = switchbase(allhexadecimalsmin, i);
+	extra = switchbase(allhexadecimals, i);
 	return (extra);
 }

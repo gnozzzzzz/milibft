@@ -10,22 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include "ftprintffuncs.h"
 #include "libft/libft.h"
-
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
 
 int	recibeletra(va_list *argumentos)
 {
@@ -36,30 +25,13 @@ int	recibeletra(va_list *argumentos)
 	return (-1);
 }
 
-/*int	recibepalabra(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-	{
-		ft_putstr("(null)");
-		return (6);
-	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
-}*/
 int	recibepalabra(char *aponer)
 {
 	int		extra;
 
 	if (aponer == NULL)
 	{
-		ft_putstr("(null)");
+		write(1, "(null)", 6);
 		return (4);
 	}
 	extra = ft_strlen(aponer);
@@ -81,22 +53,15 @@ int	recibenumdec(va_list *argumentos)
 
 int	recibeunsigdec(va_list *argumentos)
 {
-	int		extra;
-	int		exextra;
-	int		num;
-	char	*aponer;
+	int				extra;
+	int				num;
+	char			*aponer;
 
 	extra = 0;
-	exextra = 0;
 	num = va_arg(*argumentos, int);
-	if (num < 0)
-	{
-		exextra += 1;
-		num *= -1;
-	}
 	aponer = ft_itoa(num);
 	extra += ft_strlen(aponer);
 	write (1, aponer, extra);
 	free (aponer);
-	return (extra + exextra - 2);
+	return (extra - 2);
 }

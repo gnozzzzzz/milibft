@@ -25,8 +25,6 @@ static int	lee_letra(char c, va_list *argumentos)
 		i += recibeletra(argumentos);
 	else if (c == 's')
 		i += recibepalabra(va_arg(*argumentos, char *));
-	//else if (c == 'A')
-	//	i += hxdclng((unsigned long long int)va_arg(*argumentos, void *));
 	else if (c == 'p')
 		i += hxdclng(argumentos);
 	else if (c == 'd')
